@@ -45,8 +45,8 @@ class Conv2DTrainer:
         (x_train, self.y_train), (x_test, self.y_test) = cifar10.load_data()
 
         # normalization
-        x_train = x_train.astype('float32')
-        x_test = x_test.astype('float32')
+        self.x_train = x_train.astype('float32') 
+        self.x_test = x_test.astype('float32')
         self.x_train /= 255
         self.x_test /= 255
 
@@ -58,10 +58,10 @@ class Conv2DTrainer:
         self.mnv2_bw = MobileNetV2(input_shape = (32,32,1), weights = None, classes=10)
 
     def train_model(self, model_fn = "grey"):
-        if model_fn = 'grey':
-            model, x_train, y_train = self.mnv2_bw, self.x_train, self.y_train
+        if model_fn =='grey':  
+            model, x_train, y_train = self.mnv2_bw, self.x_train_g, self.y_train 
         else:
-            model, x_train, y_train = self.mnv2_clr, self.x_train_g, self.y_train
+            model, x_train, y_train = self.mnv2_clr, self.x_train, self.y_train
         print("Training", model_fn,"model")
         
         model.compile(loss='sparse_categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
