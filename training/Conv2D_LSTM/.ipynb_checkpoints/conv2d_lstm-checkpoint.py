@@ -17,7 +17,6 @@ from sklearn.model_selection import train_test_split
 from keras.applications.mobilenet import MobileNet
 from keras.models import Model, load_model as K_load_model
 from keras.layers import LSTM, Dense, InputLayer
-from keras.callbacks.callbacks import ModelCheckpoint
 
 class DataHandler:
 	'''
@@ -107,7 +106,7 @@ class DataHandler:
 			if save_data_as == None: save_data_as = "data.pkl"
 			if ".pkl" not in save_data_as: save_data_as += ".pkl"
 
-			X, y, video_list, classes = self.prepare_training_data(self.video_path)
+			X, y, video_list, classes = self.prepare_training_data(video_path)
 
 			X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = self.test_split, random_state=42)
 
@@ -172,8 +171,8 @@ class Trainer(DataHandler):
 
 		callbacks = [ModelCheckpoint(model_path, monitor='val_accuracy', verbose=1, save_best_only=True, mode='max')]
 		
-		lstm_model.compile(optimizer='adam', loss='sparse_categorical_crossentropy')
-		lstm_model.fit(self.X_train, self.y_train, epochs=self.epochs, batch_size=self.batch_size, validation_split=self.validation_split, shuffle=True, verbose=2, callbacks = callbacks)
+		model.compile(optimizer='adam', loss='sparse_categorical_crossentropy')
+		model.fit(self.X_train, self.y_train, epochs=self.epochs, batch_size=self.batch_size, validation_split=self.validation_split, shuffle=True, verbose=2, callbacks = callbacks)
 
 class Tester(DataHandler):
 	'''
