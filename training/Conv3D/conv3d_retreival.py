@@ -40,9 +40,6 @@ from keras.layers import Dense,Dropout,Conv3D,Input,MaxPool3D,Flatten,Activation
 from keras.regularizers import l2
 from keras.models import Model, load_model
 
-!pip3 install keras==2.3.1 # uncomment this to install keras 2.3.1
-!pip3 install sklearn
-
 # Based on https://github.com/TianzhongSong/C3D-keras/blob/master/models.py
 def c3d_model(resolution = (112,112), n_frames = 16, channels = 3, nb_classes = 3):
     input_shape = tuple([n_frames] + list(resolution) + [channels])
@@ -218,9 +215,6 @@ class Trainer(DataHandler):
 		self.c3d_model.compile(optimizer=sgd, loss='sparse_categorical_crossentropy', metrics = ['accuracy'])
 		self.c3d_model.fit(self.X_train, self.y_train, epochs=self.epochs, batch_size=self.batch_size, validation_split=self.validation_split, shuffle=True, callbacks = callbacks)
 
-# tr = Trainer()
-# tr.train()
-
 class Tester(DataHandler):
 	def __init__(self, test_model, distance_metric = "distance"):
 		DataHandler.__init__(self, videos_path = "/content/drive/My Drive/data/KTH_data/c3d_model_KTH_HAR.hdf5", test_size = 0.01)
@@ -265,5 +259,8 @@ class Tester(DataHandler):
 			accuracy_list = np.array(accuracy_list)
 			print("Top:", top, "Mean Retrieval Accuracy", np.mean(accuracy_list))
 
-ts = Tester("/content/drive/My Drive/data/KTH_data/c3d_model_KTH_HAR.hdf5")
-ts.test()
+if __name__ == '__main__':
+	# tr = Trainer()
+	# tr.train()
+	ts = Tester("/content/drive/My Drive/data/KTH_data/c3d_model_KTH_HAR.hdf5")
+	ts.test()
