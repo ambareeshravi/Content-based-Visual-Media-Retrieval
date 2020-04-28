@@ -238,9 +238,10 @@ class Tester(DataHandler):
 			accuracy_list = np.array(accuracy_list)
 			print("Top:", top, "Mean Retrieval Accuracy", np.mean(accuracy_list))
 
-# tr = Trainer()
-# tr.train()
+if __name__ == '__main__':
+	# tr = Trainer()
+	# tr.train()
 
-ts = Tester("/content/drive/My Drive/data/KTH_data/CONV2D_LSTM_E13.hdf5", "/content/drive/My Drive/data/KTH_data/KTH_HAR_C2DLSTM_test.pkl")
-ts.test()
+	ts = Tester("/content/drive/My Drive/data/KTH_data/CONV2D_LSTM_E13.hdf5", "/content/drive/My Drive/data/KTH_data/KTH_HAR_C2DLSTM_test.pkl")
+	ts.test()
 
