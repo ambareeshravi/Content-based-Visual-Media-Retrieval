@@ -51,7 +51,7 @@ class DataHandler:
 		mobilenet = MobileNet()
 		return Model(inputs=mobilenet.inputs, output=mobilenet.get_layer("global_average_pooling2d_1").output)
 
-	def sample_frames(self, video_path):
+	def sample_frames(self, video_path, to_normalize = True):
 		'''
 		Gets 'n' number of frames, each of resolution 'w' x 'h' and 3 channels (RGB) from a video
 
@@ -67,6 +67,7 @@ class DataHandler:
 			if not isRead: break
 			if read_count % (int(frame_total/self.n_frames) -2) == 0:
 				frame = cv2.resize(frame, self.operating_resolution)
+				if to_normalize: frame = frame / 255.
 				frames_list.append(frame)
 			read_count += 1
 			if len(frames_list) == self.n_frames: break
