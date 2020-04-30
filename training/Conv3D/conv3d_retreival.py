@@ -103,7 +103,7 @@ class DataHandler:
 
 		self.videos_path = videos_path
 
-	def sample_frames(self, video_path):
+	def sample_frames(self, video_path, to_normalize = True):
 		'''
 		Gets 'n' number of frames, each of resolution 'w' x 'h' and 3 channels (RGB) from a video
 
@@ -117,8 +117,9 @@ class DataHandler:
 		while cap.isOpened():
 			isRead, frame = cap.read()
 			if not isRead: break
-			if read_count % (int(frame_total/self.n_frames) -5) == 0:
+			if read_count % (int(frame_total/self.n_frames)) == 0:
 				frame = cv2.resize(frame, self.operating_resolution)
+				if to_normalize: frame = frame / 255.
 				frames_list.append(frame)
 			read_count += 1
 			if len(frames_list) == self.n_frames: break
