@@ -65,7 +65,7 @@ class DataHandler:
 		while cap.isOpened():
 			isRead, frame = cap.read()
 			if not isRead: break
-			if read_count % (int(frame_total/self.n_frames) -2) == 0:
+			if read_count % (int(frame_total/self.n_frames)) == 0:
 				frame = cv2.resize(frame, self.operating_resolution)
 				if to_normalize: frame = frame / 255.
 				frames_list.append(frame)
