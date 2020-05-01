@@ -67,7 +67,7 @@ class DataHandler:
 			if not isRead: break
 			if read_count % (int(frame_total/self.n_frames)) == 0:
 				frame = cv2.resize(frame, self.operating_resolution)
-				if to_normalize: frame = frame / 255.
+				if to_normalize: frame = frame.astype(np.float16) / 255.
 				frames_list.append(frame)
 			read_count += 1
 			if len(frames_list) == self.n_frames: break
