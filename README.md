@@ -7,4 +7,4 @@ This research compares the performance of 3D CNNs for video retrieval to a novel
 https://arxiv.org/abs/2105.08665
 
 
-The main codebase for the experiments in the paper is under _training_
+The main codebase for the experiments in the paper is under _training/_
